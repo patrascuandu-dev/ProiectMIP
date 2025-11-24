@@ -1,8 +1,13 @@
 package com.restaurant;
 
+import com.restaurant.config.Config;
+import com.restaurant.config.ConfigLoader;
+import com.restaurant.config.InvalidConfigException;
 import com.restaurant.model.*;
 import com.restaurant.service.MeniuService;
 
+import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.util.List;
 import java.util.OptionalDouble;
 
@@ -10,7 +15,27 @@ public class Main {
     public static void main(String[] args) {
         MeniuService service = new MeniuService();
         Meniu meniu = service.initializareMeniu();
-        service.afiseazaMeniu(meniu);
+
+        Config cfg = new Config(); // defaults
+        try {
+            cfg = ConfigLoader.load("config.json");
+        } catch (NoSuchFileException e) {
+            System.out.println("Eroare: Fișierul de configurare 'config.json' lipsește. Se vor folosi valorile implicite.");
+        } catch (InvalidConfigException e) {
+            System.out.println("Eroare: Fișierul de configurare este corupt sau are format invalid. Se vor folosi valorile implicite.");
+        } catch (IOException e) {
+            System.out.println("Eroare la citirea fișierului de configurare: " + e.getMessage() + ". Se vor folosi valorile implicite.");
+        }
+
+        // Set TVA from config (with validation inside setTVA)
+        try {
+            Comanda.setTVA(cfg.getTva());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Valoare TVA invalidă în configurație. Se folosește TVA implicit: " + Comanda.TVA);
+        }
+
+        // Display menu with configured restaurant name
+        service.afiseazaMeniu(meniu, cfg.getRestaurantName());
 
         // 1) Produse vegetariene sortate alfabetic
         System.out.println("\n--- Produse vegetariene (sortate alfabetic) ---");
@@ -51,5 +76,13 @@ public class Main {
         // Adăugăm pizza în meniu la fel principal și o afișăm
         meniu.adaugaProdus(Categorie.FEL_PRINCIPAL, pizzaCustom);
         System.out.println("\nAm adăugat pizza custom în categoria FEL_PRINCIPAL.");
+
+        // Export meniu to JSON
+        try {
+            meniu.exportToJson(cfg.getMenuExportFile());
+            System.out.println("Meniu exportat cu succes în '" + cfg.getMenuExportFile() + "'.");
+        } catch (IOException e) {
+            System.out.println("Eroare: Nu am putut exporta meniul: " + e.getMessage());
+        }
     }
 }

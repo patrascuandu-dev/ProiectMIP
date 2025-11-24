@@ -37,8 +37,9 @@ public class MeniuService {
         return meniu;
     }
 
-    public void afiseazaMeniu(Meniu meniu) {
-        System.out.println("Meniu Restaurantului \"La Andrei\"");
+    public void afiseazaMeniu(Meniu meniu, String restaurantName) {
+        String name = (restaurantName == null || restaurantName.isBlank()) ? "Restaurant" : restaurantName;
+        System.out.println("Meniu Restaurantului \"" + name + "\"");
         for (Categorie c : Categorie.values()) {
             System.out.println("== " + c + " ==");
             List<Produs> list = meniu.getProduseDinCategorie(c);

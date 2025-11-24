@@ -7,9 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Comanda {
-    public static final double TVA = 0.09;
+    // TVA can be configured at runtime from external config
+    public static double TVA = 0.09;
 
     private final Map<Produs, Integer> produse = new HashMap<>();
+
+    public static void setTVA(double tva) {
+        if (tva < 0 || tva > 1) throw new IllegalArgumentException("TVA invalid");
+        TVA = tva;
+    }
 
     public void adaugaProdus(Produs produs, int cantitate) {
         if (produs == null) throw new IllegalArgumentException("Produsul nu poate fi null");
@@ -52,4 +58,3 @@ public class Comanda {
         return sb.toString();
     }
 }
-

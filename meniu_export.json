@@ -1,0 +1,25 @@
+{
+  "APERITIVE": [
+    {"type": "Mancare", "nume": "Bruschetta", "pret": 18.0, "gramaj": 150, "vegetarian": true},
+    {"type": "Mancare", "nume": "Salată Caesar", "pret": 25.0, "gramaj": 200, "vegetarian": false}
+  ],
+  "FEL_PRINCIPAL": [
+    {"type": "Pizza", "nume": "Pizza Margherita", "pret": 45.0, "gramaj": 450, "vegetarian": false, "blat": "Subțire", "sos": "Roșii", "toppinguri": ["Mozzarella"]},
+    {"type": "Mancare", "nume": "Ciorbă de văcuță", "pret": 35.0, "gramaj": 400, "vegetarian": false},
+    {"type": "Mancare", "nume": "Paste Carbonara", "pret": 40.0, "gramaj": 350, "vegetarian": false},
+    {"type": "Mancare", "nume": "Steak Wagyu", "pret": 250.0, "gramaj": 350, "vegetarian": false},
+    {"type": "Pizza", "nume": "Pizza Custom Deluxe", "pret": 55.0, "gramaj": 500, "vegetarian": false, "blat": "Pan", "sos": "BBQ", "toppinguri": ["Mozzarella", "Ciuperci", "Salam"]}
+  ],
+  "DESERT": [
+    {"type": "Mancare", "nume": "Tiramisu", "pret": 22.0, "gramaj": 150, "vegetarian": false},
+    {"type": "Mancare", "nume": "Panna Cotta", "pret": 20.0, "gramaj": 120, "vegetarian": false}
+  ],
+  "BAUTURI_RACORITOARE": [
+    {"type": "Bautura", "nume": "Limonadă", "pret": 15.0, "volum": 400, "alcoolica": false},
+    {"type": "Bautura", "nume": "Apă plată", "pret": 6.0, "volum": 500, "alcoolica": false}
+  ],
+  "BAUTURI_ALCOOLICE": [
+    {"type": "Bautura", "nume": "Vin Roșu", "pret": 25.0, "volum": 200, "alcoolica": true},
+    {"type": "Bautura", "nume": "Bere Artizanală", "pret": 18.0, "volum": 500, "alcoolica": true}
+  ]
+}
