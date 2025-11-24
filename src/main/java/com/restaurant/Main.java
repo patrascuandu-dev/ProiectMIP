@@ -1,52 +1,55 @@
 package com.restaurant;
 
 import com.restaurant.model.*;
-import com.restaurant.service.HappyHourDiscount;
 import com.restaurant.service.MeniuService;
 
-import java.time.LocalTime;
 import java.util.List;
+import java.util.OptionalDouble;
 
 public class Main {
     public static void main(String[] args) {
         MeniuService service = new MeniuService();
-        List<Produs> produse = service.initializareMeniu();
-        service.afiseazaMeniu(produse);
+        Meniu meniu = service.initializareMeniu();
+        service.afiseazaMeniu(meniu);
 
-        // Construim o comanda
-        Comanda comanda = new Comanda();
+        // 1) Produse vegetariene sortate alfabetic
+        System.out.println("\n--- Produse vegetariene (sortate alfabetic) ---");
+        List<Mancare> vegetariene = meniu.produseVegetarieneSortate();
+        vegetariene.forEach(p -> System.out.println("- " + p.getNume()));
 
-        Produs pizza = findProdusByNume(produse, "Pizza Margherita");
-        if (pizza != null) comanda.adaugaProdus(pizza, 2);
-
-        Produs ciorba = findProdusByNume(produse, "Ciorbă de văcuță");
-        if (ciorba != null) comanda.adaugaProdus(ciorba, 1);
-
-        Produs limonada = findProdusByNume(produse, "Limonadă");
-        if (limonada != null) comanda.adaugaProdus(limonada, 1);
-
-        // Adăugăm o băutură alcoolică care nu este în meniu, pentru demonstrație
-        Bautura vin = new Bautura("Vin Roșu", 25.0, 200, true);
-        comanda.adaugaProdus(vin, 1);
-
-        System.out.println("\n--- Comanda curentă ---");
-        System.out.println(comanda);
-
-        double subtotal = comanda.calculeazaSubtotal();
-        System.out.printf("Subtotal: %.2f RON\n", subtotal);
-        System.out.printf("TVA (%.0f%%): %.2f RON\n", Comanda.TVA * 100, subtotal * Comanda.TVA);
-        System.out.printf("Total fără discount: %.2f RON\n", comanda.calculeazaTotal(null));
-
-        // Demonstrație Happy Hour: 20% reducere la băuturi alcoolice - forțăm activarea pentru demo
-        HappyHourDiscount happy = new HappyHourDiscount(LocalTime.of(17, 0), LocalTime.of(19, 0), 0.20, true);
-        double totalCuDiscount = comanda.calculeazaTotal(happy);
-        System.out.printf("Total cu Happy Hour (20%% pe băuturi alcoolice): %.2f RON\n", totalCuDiscount);
-    }
-
-    private static Produs findProdusByNume(List<Produs> produse, String nume) {
-        for (Produs p : produse) {
-            if (p.getNume().equalsIgnoreCase(nume)) return p;
+        // 2) Pret mediu pentru desert
+        System.out.println("\n--- Preț mediu pentru deserturi ---");
+        OptionalDouble medieDesert = meniu.pretMediuPentruCategorie(Categorie.DESERT);
+        if (medieDesert.isPresent()) {
+            System.out.printf("Preț mediu deserturi: %.2f RON\n", medieDesert.getAsDouble());
+        } else {
+            System.out.println("Nu există deserturi în meniu.");
         }
-        return null;
+
+        // 3) Există preparat > 100 RON?
+        System.out.println("\n--- Există preparat cu preț > 100 RON? ---");
+        boolean existaScump = meniu.existaProdusPestePret(100.0);
+        System.out.println(existaScump ? "Da, avem preparate scumpe." : "Nu, toate preparatele sunt <= 100 RON.");
+
+        // 4) Căutare sigură în meniu (Optional)
+        System.out.println("\n--- Căutare produs (sigură) ---");
+        String cautat = "Tiramisu";
+        meniu.cautaDupaNume(cautat)
+                .ifPresentOrElse(
+                        p -> System.out.println("Produs găsit: " + p.descriere()),
+                        () -> System.out.println("Produsul '" + cautat + "' nu a fost găsit."));
+
+        // 5) Construire pizza customizabilă cu Builder
+        System.out.println("\n--- Construire pizza custom ---");
+        Pizza pizzaCustom = new Pizza.Builder("Pizza Custom Deluxe", 55.0, 500, "Pan", "BBQ")
+                .adaugaTopping("Mozzarella")
+                .adaugaTopping("Ciuperci")
+                .adaugaTopping("Salam")
+                .build();
+        System.out.println(pizzaCustom.descriere());
+
+        // Adăugăm pizza în meniu la fel principal și o afișăm
+        meniu.adaugaProdus(Categorie.FEL_PRINCIPAL, pizzaCustom);
+        System.out.println("\nAm adăugat pizza custom în categoria FEL_PRINCIPAL.");
     }
 }
