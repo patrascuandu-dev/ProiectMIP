@@ -1,6 +1,6 @@
 package com.restaurant.model;
 
-public class Mancare implements Produs {
+public final class Mancare implements Produs {
     private String nume;
     private double pret;
     private int gramaj;
@@ -18,5 +18,10 @@ public class Mancare implements Produs {
     @Override
     public String descriere() {
         return nume + " – " + pret + " RON – Gramaj: " + gramaj + "g";
+    }
+
+    @Override
+    public String toString() {
+        return descriere();
     }
 }

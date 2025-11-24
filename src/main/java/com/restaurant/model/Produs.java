@@ -1,6 +1,6 @@
 package com.restaurant.model;
 
-public interface Produs {
+public sealed interface Produs permits Mancare, Bautura {
     String getNume();
     double getPret();
     String descriere();

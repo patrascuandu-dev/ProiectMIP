@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/src/main/java/com/restaurant/model/Bautura.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/restaurant/model/Bautura.java" />
+              <option name="originalContent" value="package com.restaurant.model;&#10;&#10;public class Bautura implements Produs {&#10;    private String nume;&#10;    private double pret;&#10;    private int volum;&#10;&#10;    public Bautura(String nume, double pret, int volum) {&#10;        this.nume = nume;&#10;        this.pret = pret;&#10;        this.volum = volum;&#10;    }&#10;&#10;    public String getNume() { return nume; }&#10;    public double getPret() { return pret; }&#10;    public int getVolum() { return volum; }&#10;&#10;    @Override&#10;    public String descriere() {&#10;        return nume + &quot; – &quot; + pret + &quot; RON – Volum: &quot; + volum + &quot;ml&quot;;&#10;    }&#10;}&#10;" />
+              <option name="updatedContent" value="package com.restaurant.model;&#10;&#10;public final class Bautura implements Produs {&#10;    private String nume;&#10;    private double pret;&#10;    private int volum;&#10;    private boolean alcoolica;&#10;&#10;    public Bautura(String nume, double pret, int volum) {&#10;        this(nume, pret, volum, false);&#10;    }&#10;&#10;    public Bautura(String nume, double pret, int volum, boolean alcoolica) {&#10;        this.nume = nume;&#10;        this.pret = pret;&#10;        this.volum = volum;&#10;        this.alcoolica = alcoolica;&#10;    }&#10;&#10;    public String getNume() { return nume; }&#10;    public double getPret() { return pret; }&#10;    public int getVolum() { return volum; }&#10;    public boolean isAlcoolica() { return alcoolica; }&#10;&#10;    @Override&#10;    public String descriere() {&#10;        return nume + &quot; – &quot; + pret + &quot; RON – Volum: &quot; + volum + &quot;ml&quot; + (alcoolica ? &quot; – Alcoolică&quot; : &quot;&quot;);&#10;    }&#10;&#10;    @Override&#10;    public String toString() {&#10;        return descriere();&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/restaurant/model/Mancare.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/restaurant/model/Mancare.java" />
+              <option name="originalContent" value="package com.restaurant.model;&#10;&#10;public class Mancare implements Produs {&#10;    private String nume;&#10;    private double pret;&#10;    private int gramaj;&#10;&#10;    public Mancare(String nume, double pret, int gramaj) {&#10;        this.nume = nume;&#10;        this.pret = pret;&#10;        this.gramaj = gramaj;&#10;    }&#10;&#10;    public String getNume() { return nume; }&#10;    public double getPret() { return pret; }&#10;    public int getGramaj() { return gramaj; }&#10;&#10;    @Override&#10;    public String descriere() {&#10;        return nume + &quot; – &quot; + pret + &quot; RON – Gramaj: &quot; + gramaj + &quot;g&quot;;&#10;    }&#10;}&#10;" />
+              <option name="updatedContent" value="package com.restaurant.model;&#10;&#10;public final class Mancare implements Produs {&#10;    private String nume;&#10;    private double pret;&#10;    private int gramaj;&#10;&#10;    public Mancare(String nume, double pret, int gramaj) {&#10;        this.nume = nume;&#10;        this.pret = pret;&#10;        this.gramaj = gramaj;&#10;    }&#10;&#10;    public String getNume() { return nume; }&#10;    public double getPret() { return pret; }&#10;    public int getGramaj() { return gramaj; }&#10;&#10;    @Override&#10;    public String descriere() {&#10;        return nume + &quot; – &quot; + pret + &quot; RON – Gramaj: &quot; + gramaj + &quot;g&quot;;&#10;    }&#10;&#10;    @Override&#10;    public String toString() {&#10;        return descriere();&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/restaurant/service/DiscountStrategy.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/restaurant/service/DiscountStrategy.java" />
+              <option name="originalContent" value="3package com.restaurant.service;&#10;&#10;import com.restaurant.model.Comanda;&#10;&#10;@FunctionalInterface&#10;public interface DiscountStrategy {&#10;    /**&#10;     * Calculeaza valoarea discount-ului aplicabil unei comenzi, pe baza subtotalului.&#10;     * Returneaza valoarea in RON (nu procent).&#10;     */&#10;    double apply(Comanda comanda, double subtotal);&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package com.restaurant.service;&#10;&#10;import com.restaurant.model.Comanda;&#10;&#10;@FunctionalInterface&#10;public interface DiscountStrategy {&#10;    /**&#10;     * Calculeaza valoarea discount-ului aplicabil unei comenzi, pe baza subtotalului.&#10;     * Returneaza valoarea in RON (nu procent).&#10;     */&#10;    double apply(Comanda comanda, double subtotal);&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
